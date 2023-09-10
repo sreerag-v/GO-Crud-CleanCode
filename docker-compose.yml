@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:latest
+    volumes:
+      - data:/var/lib/mongo
+    ports:
+      - "27017:27017"
+  
+  go-crud:
+    build: .
+    depends_on:
+      - mongo
+    restart: on-failure
+    ports:
+      - "8080:8080"
+  
+volumes:
+  data:
